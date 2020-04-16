@@ -1,0 +1,22 @@
+{
+  "name": "volume-remote-pc-server",
+  "version": "1.0.0",
+  "description": "PC Server for volume-remote",
+  "main": "index.js",
+  "repository": "https://github.com/ccheever/volume-remote.git",
+  "author": "Charlie Cheever <ccheever@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node .",
+    "dev": "nodemon ."
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3",
+    "project-repl": "^1.5.0"
+  },
+  "dependencies": {
+    "apollo-server-express": "^2.12.0",
+    "local-ip": "^2.0.0",
+    "loudness": "https://github.com/MilosRasic/node-loudness.git#fix/linux-set-muted"
+  }
+}
