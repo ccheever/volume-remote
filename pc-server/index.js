@@ -1,7 +1,8 @@
 let { ApolloServer, gql } = require('apollo-server-express');
 let express = require('express');
-let loudness = require('loudness');
 let getLocalIp = require('local-ip');
+
+let volume = require('./volume');
 
 let typeDefs = gql`
   scalar DateTime
@@ -15,26 +16,31 @@ let typeDefs = gql`
   type Mutation {
     setVolume(level: Int!): Int
     setMuted(muted: Boolean!): Boolean
+    adjustVolume(delta: Int!): Int
   }
 `;
 
 let resolvers = {
   Query: {
     volume: async (_, {}, context, info) => {
-      return await loudness.getVolume();
+      return await volume.getVolume();
     },
     muted: async (_, {}, context, info) => {
-      return await loudness.getMuted();
+      return await volume.getMuted();
     },
   },
   Mutation: {
     setVolume: async (_, { level }, context, info) => {
-      await loudness.setVolume(level);
-      return await loudness.getVolume();
+      await volume.setVolume(level);
+      return await volume.getVolume();
+    },
+    adjustVolume: async (_, { delta }, context, info) => {
+      await volume.adjustVolume(delta);
+      return await volume.getVolume();
     },
     setMuted: async (_, { muted }, context, info) => {
-      await loudness.setMuted(muted);
-      return await loudness.getMuted();
+      await volume.setMuted(muted);
+      return await volume.getMuted();
     },
   },
 };
@@ -53,6 +59,7 @@ let server = new ApolloServer({
     return err;
   },
   formatResponse: (res) => {
+    console.log(res);
     return res;
   },
   context: ({ req }) => {
