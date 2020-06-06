@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@expo/spawn-async": "^1.5.0",
-    "apollo-server-express": "^2.12.0",
+    "apollo-server-express": "^2.14.2",
     "local-ip": "^2.0.0",
     "loudness": "https://github.com/MilosRasic/node-loudness.git#fix/linux-set-muted"
   }
